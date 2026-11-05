@@ -18,7 +18,7 @@ export const timeline: TimelineEntry[] = [
     id: 'licence',
     period: 'En cours',
     title: 'Licence en ingenierie informatique et telecommunications',
-    organization: 'A completer (nom de l\'universite)',
+    organization: 'ERPIE',
     description: 'Formation en informatique, reseaux et telecommunications.',
     type: 'education',
   },
