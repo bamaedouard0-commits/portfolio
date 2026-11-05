@@ -6,7 +6,7 @@
 export const social = {
   github: '{{LIEN_GITHUB}}',
   linkedin: 'https://www.linkedin.com/in/edouard-bama-7056ba432',
-  facebook: '{{LIEN_FACEBOOK}}',
+  facebook: 'https://www.facebook.com/profile.php?id=61596243659966',
   tiktok: '{{LIEN_TIKTOK}}',
   whatsapp: '+22664371012',
   email: 'bamaedouard0@gmail.com',
