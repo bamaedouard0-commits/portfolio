@@ -66,7 +66,8 @@ export const projects: Project[] = [
       'Planning du personnel',
       'Supervision multi-sites',
     ],
-    image: null, // A remplacer par une capture reelle de l'interface
+    // Capture reelle de l'interface, base de demonstration locale (organisation fictive "BamResto Demo")
+    image: import.meta.env.BASE_URL + 'images/projects/bamresto.jpg',
     liveUrl: null,
     repoUrl: null, // Depot prive
   },
@@ -92,18 +93,19 @@ export const projects: Project[] = [
   {
     id: 'livrago',
     title: 'Livrago, application de livraison',
-    description: 'Application de gestion et suivi des livraisons en temps reel.',
+    description: 'Marketplace multi-boutiques avec livraison geolocalisee.',
     longDescription:
-      'Plateforme de livraison permettant aux clients de passer commande, aux livreurs de gerer leurs tournees et aux gestionnaires de suivre l\'activite en temps reel.',
+      'Plateforme ou les clients commandent aupres de plusieurs boutiques, les livreurs gerent leurs courses avec suivi GPS en temps reel, et un super admin supervise boutiques, livreurs, finances et litiges. Quatre espaces : client, boutique, livreur, administration.',
     category: ['mobile', 'web'],
-    technologies: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'WebSocket'],
+    technologies: ['React', 'TypeScript', 'NestJS', 'MySQL', 'Socket.IO', 'Tailwind CSS'],
     features: [
-      'Suivi en temps reel des livraisons',
-      'Interface client, livreur et gestionnaire',
-      'Optimisation des tournees',
-      'Historique et rapports',
+      'Suivi GPS en temps reel des livraisons',
+      'Espaces client, boutique, livreur et administration',
+      'Portefeuilles et repartition financiere automatique',
+      'Messagerie client et livreur, avis et pourboires',
     ],
-    image: null, // A remplacer par une capture reelle
+    // Capture reelle de l'espace admin, base de demonstration locale (boutiques, livreurs et commandes fictifs)
+    image: import.meta.env.BASE_URL + 'images/projects/livrago.jpg',
     liveUrl: null,
     repoUrl: null,
   },
