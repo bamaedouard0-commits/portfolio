@@ -2,6 +2,7 @@ import * as LucideIcons from 'lucide-react';
 import { skillDomains } from '../../data/skills';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 import { TextReveal } from '../motion/TextReveal';
+import { CardBackdrop } from '../motion/CardBackdrop';
 
 type IconName = keyof typeof LucideIcons;
 
@@ -23,7 +24,8 @@ export function Skills() {
         </div>
         <div className="skills-grid">
           {skillDomains.map((domain) => (
-            <div className="card" key={domain.id} data-animate>
+            <div className="card skill-card" key={domain.id} data-animate>
+              <CardBackdrop kind={domain.id} />
               <div className="skill-card__icon">
                 {getIcon(domain.icon)}
               </div>

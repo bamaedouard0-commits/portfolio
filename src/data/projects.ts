@@ -44,7 +44,8 @@ export const projects: Project[] = [
       'Encaissements et suivi financier',
       'Espace parent avec demandes en ligne',
     ],
-    image: null, // Captures reelles disponibles dans presentation-gestion-scolaire-sources/captures/
+    // Capture reelle du tableau de bord, base de demonstration fictive (etablissement et eleves fictifs)
+    image: import.meta.env.BASE_URL + 'images/projects/ecole-bf.jpg',
     liveUrl: null,
     repoUrl: null, // Depot prive
   },

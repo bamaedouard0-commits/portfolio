@@ -237,7 +237,12 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
 }
 :root[data-theme="light"] .project-card__image-wrapper { background-color: var(--color-surface-hover); }
 .project-card__placeholder { font-size: 14px; color: var(--color-text-muted); text-align: center; padding: 20px; }
-.project-card__image { width: 100%; height: 100%; object-fit: cover; }
+.project-card__image {
+  width: 100%; height: 100%; object-fit: cover; object-position: top left;
+  transition: transform var(--duration-slow) var(--ease-smooth-out);
+}
+.project-card:hover .project-card__image { transform: scale(1.04); }
+.project-card__image-wrapper { aspect-ratio: 16 / 10; height: auto; }
 .project-card__title { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
 .project-card__desc { font-size: 14px; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 16px; }
 .project-card__techs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
@@ -385,6 +390,19 @@ html.lenis, html.lenis body { height: auto; }
 /* Titres de section plus grands */
 .section-title__heading { font-size: clamp(36px, 6vw, 72px); font-weight: 500; letter-spacing: -0.02em; line-height: 1.05; }
 .text-reveal__unit { will-change: transform, opacity; }
+
+/* Fonds animes des cartes de competences */
+.skill-card { position: relative; overflow: hidden; }
+.skill-card > *:not(.card-backdrop) { position: relative; z-index: 1; }
+.card-backdrop {
+  position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;
+  opacity: 0.45; transition: opacity var(--duration-medium) var(--ease-smooth-out);
+}
+.skill-card:hover .card-backdrop { opacity: 0.8; }
+:root[data-theme="light"] .card-backdrop { opacity: 0.35; }
+
+/* Papillons */
+.butterflies { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 40; pointer-events: none; }
 
 /* Photo parallax */
 .about__photo-wrapper { overflow: visible; }
