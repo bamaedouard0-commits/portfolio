@@ -273,7 +273,265 @@ function makeThreeD(): Painter {
   };
 }
 
+/* ---------- Painters des services ---------- */
+
+// Applications web : fenetre de navigateur qui se construit
+function makeSvcWeb(): Painter {
+  return (ctx, w, h, t) => {
+    const bw = Math.min(w * 0.52, 230);
+    const bh = Math.min(h * 0.72, 150);
+    const x = w - bw - 22;
+    const y = (h - bh) / 2;
+    ctx.strokeStyle = rgba(BLUE, 0.7);
+    ctx.lineWidth = 1.2;
+    ctx.strokeRect(x, y, bw, bh);
+    ctx.beginPath();
+    ctx.moveTo(x, y + 16);
+    ctx.lineTo(x + bw, y + 16);
+    ctx.stroke();
+    [0, 1, 2].forEach((i) => {
+      ctx.beginPath();
+      ctx.arc(x + 9 + i * 10, y + 8, 2.4, 0, 7);
+      ctx.fillStyle = rgba(i === 0 ? GOLD : BLUE, 0.9);
+      ctx.fill();
+    });
+    const blocks = [
+      [8, 26, bw - 16, 18], [8, 52, (bw - 24) / 2, bh - 66], [16 + (bw - 24) / 2, 52, (bw - 24) / 2, 22], [16 + (bw - 24) / 2, 82, (bw - 24) / 2, bh - 96],
+    ];
+    const cycle = (t * 0.6) % (blocks.length + 2);
+    blocks.forEach(([bx, by, bw2, bh2], i) => {
+      const a = Math.max(0, Math.min(1, cycle - i));
+      if (a <= 0) return;
+      ctx.fillStyle = rgba(i % 2 ? BLUE : GOLD, 0.18 * a);
+      ctx.fillRect(x + bx, y + by, bw2, bh2);
+      ctx.strokeStyle = rgba(i % 2 ? BLUE : GOLD, 0.7 * a);
+      ctx.strokeRect(x + bx, y + by, bw2, bh2);
+    });
+    // curseur
+    const cx = x + 20 + ((Math.sin(t * 0.8) + 1) / 2) * (bw - 50);
+    const cy = y + 24 + ((Math.cos(t * 0.6) + 1) / 2) * (bh - 40);
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + 9, cy + 4);
+    ctx.lineTo(cx + 4, cy + 9);
+    ctx.closePath();
+    ctx.fillStyle = rgba(GOLD, 1);
+    ctx.fill();
+  };
+}
+
+// Logiciels de gestion : tableau de bord qui respire
+function makeSvcManagement(): Painter {
+  return (ctx, w, h, t) => {
+    const bars = 7;
+    const x0 = w * 0.42;
+    const span = w - x0 - 22;
+    const base = h - 24;
+    const maxH = h * 0.6;
+    const pts: [number, number][] = [];
+    for (let i = 0; i < bars; i++) {
+      const bw = span / bars - 6;
+      const v = 0.35 + 0.65 * Math.abs(Math.sin(t * 0.7 + i * 0.9 + rand(i) * 3));
+      const bh = maxH * v;
+      const x = x0 + i * (span / bars);
+      ctx.fillStyle = rgba(i === bars - 1 ? GOLD : BLUE, i === bars - 1 ? 0.55 : 0.3);
+      ctx.fillRect(x, base - bh, bw, bh);
+      ctx.strokeStyle = rgba(i === bars - 1 ? GOLD : BLUE, 0.85);
+      ctx.strokeRect(x, base - bh, bw, bh);
+      pts.push([x + bw / 2, base - bh - 8 - Math.sin(t + i) * 6]);
+    }
+    ctx.beginPath();
+    pts.forEach(([px, py], i) => (i ? ctx.lineTo(px, py) : ctx.moveTo(px, py)));
+    ctx.strokeStyle = rgba(GOLD, 0.95);
+    ctx.lineWidth = 1.6;
+    ctx.stroke();
+    pts.forEach(([px, py]) => {
+      ctx.beginPath();
+      ctx.arc(px, py, 2.6, 0, 7);
+      ctx.fillStyle = rgba(GOLD, 1);
+      ctx.fill();
+    });
+  };
+}
+
+// Reseaux : ondes qui rayonnent depuis une antenne
+function makeSvcNetwork(): Painter {
+  return (ctx, w, h, t) => {
+    const cx = w * 0.78;
+    const cy = h * 0.62;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx, cy - h * 0.32);
+    ctx.strokeStyle = rgba(BLUE, 0.9);
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(cx, cy - h * 0.32, 4, 0, 7);
+    ctx.fillStyle = rgba(GOLD, 1);
+    ctx.fill();
+    for (let k = 0; k < 4; k++) {
+      const p = ((t * 0.5 + k / 4) % 1);
+      const r = 10 + p * Math.min(w, h) * 0.55;
+      ctx.beginPath();
+      ctx.arc(cx, cy - h * 0.32, r, -Math.PI * 0.85, -Math.PI * 0.15);
+      ctx.strokeStyle = rgba(GOLD, (1 - p) * 0.8);
+      ctx.lineWidth = 1.6;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(cx, cy - h * 0.32, r, Math.PI * 0.15, Math.PI * 0.85);
+      ctx.strokeStyle = rgba(BLUE, (1 - p) * 0.6);
+      ctx.stroke();
+    }
+  };
+}
+
+// Securite : bouclier balaye par un scanner
+function makeSvcSecurity(): Painter {
+  return (ctx, w, h, t) => {
+    const cx = w * 0.78;
+    const cy = h * 0.5;
+    const s = Math.min(h * 0.4, w * 0.2);
+    const path = () => {
+      ctx.beginPath();
+      ctx.moveTo(cx, cy - s);
+      ctx.bezierCurveTo(cx + s * 0.9, cy - s * 0.85, cx + s * 0.95, cy - s * 0.3, cx + s * 0.85, cy + s * 0.15);
+      ctx.bezierCurveTo(cx + s * 0.7, cy + s * 0.7, cx + s * 0.25, cy + s * 0.9, cx, cy + s * 1.05);
+      ctx.bezierCurveTo(cx - s * 0.25, cy + s * 0.9, cx - s * 0.7, cy + s * 0.7, cx - s * 0.85, cy + s * 0.15);
+      ctx.bezierCurveTo(cx - s * 0.95, cy - s * 0.3, cx - s * 0.9, cy - s * 0.85, cx, cy - s);
+      ctx.closePath();
+    };
+    path();
+    ctx.fillStyle = rgba(BLUE, 0.1);
+    ctx.fill();
+    ctx.strokeStyle = rgba(BLUE, 0.9);
+    ctx.lineWidth = 1.6;
+    ctx.stroke();
+    // ligne de scan clippee dans le bouclier
+    ctx.save();
+    path();
+    ctx.clip();
+    const sy = cy - s + ((t * 0.6) % 1) * (s * 2.1);
+    const g = ctx.createLinearGradient(0, sy - 18, 0, sy + 2);
+    g.addColorStop(0, rgba(GOLD, 0));
+    g.addColorStop(1, rgba(GOLD, 0.55));
+    ctx.fillStyle = g;
+    ctx.fillRect(cx - s, sy - 18, s * 2, 20);
+    ctx.fillStyle = rgba(GOLD, 0.95);
+    ctx.fillRect(cx - s, sy, s * 2, 1.6);
+    ctx.restore();
+    // coche
+    ctx.beginPath();
+    ctx.moveTo(cx - s * 0.32, cy + s * 0.02);
+    ctx.lineTo(cx - s * 0.07, cy + s * 0.28);
+    ctx.lineTo(cx + s * 0.36, cy - s * 0.22);
+    ctx.strokeStyle = rgba(GOLD, 0.5 + 0.5 * Math.abs(Math.sin(t * 1.5)));
+    ctx.lineWidth = 3;
+    ctx.stroke();
+  };
+}
+
+// Bases de donnees : table dont les lignes s'allument
+function makeSvcDatabase(): Painter {
+  return (ctx, w, h, t) => {
+    const cols = 4;
+    const rows = 6;
+    const tw = Math.min(w * 0.55, 240);
+    const x0 = w - tw - 22;
+    const rh = Math.min((h - 40) / rows, 26);
+    const y0 = (h - rh * rows) / 2;
+    const active = Math.floor(t * 1.6) % rows;
+    for (let r = 0; r < rows; r++) {
+      const on = r === active;
+      ctx.fillStyle = rgba(on ? GOLD : BLUE, on ? 0.28 : r === 0 ? 0.18 : 0.06);
+      ctx.fillRect(x0, y0 + r * rh, tw, rh - 2);
+      for (let c = 0; c < cols; c++) {
+        const cw = tw / cols;
+        ctx.fillStyle = rgba(on ? GOLD : BLUE, on ? 0.95 : 0.55);
+        ctx.fillRect(x0 + c * cw + 6, y0 + r * rh + rh / 2 - 2, cw * (0.35 + rand(r * 4 + c) * 0.4), 3);
+      }
+    }
+    ctx.strokeStyle = rgba(BLUE, 0.7);
+    ctx.lineWidth = 1.2;
+    ctx.strokeRect(x0, y0, tw, rh * rows - 2);
+  };
+}
+
+// Maintenance : deux engrenages qui s'entrainent
+function makeSvcMaintenance(): Painter {
+  const gear = (ctx: Ctx, cx: number, cy: number, r: number, teeth: number, rot: number, col: string) => {
+    ctx.beginPath();
+    for (let i = 0; i < teeth * 2; i++) {
+      const a = rot + (i * Math.PI) / teeth;
+      const rr = i % 2 ? r : r * 1.18;
+      const a2 = a + Math.PI / teeth / 2;
+      ctx.lineTo(cx + Math.cos(a) * rr, cy + Math.sin(a) * rr);
+      ctx.lineTo(cx + Math.cos(a2) * rr, cy + Math.sin(a2) * rr);
+    }
+    ctx.closePath();
+    ctx.fillStyle = rgba(col, 0.12);
+    ctx.fill();
+    ctx.strokeStyle = rgba(col, 0.9);
+    ctx.lineWidth = 1.4;
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(cx, cy, r * 0.35, 0, 7);
+    ctx.stroke();
+  };
+  return (ctx, w, h, t) => {
+    const r1 = Math.min(h * 0.26, 44);
+    const r2 = r1 * 0.7;
+    const cx1 = w * 0.68;
+    const cy1 = h * 0.45;
+    const cx2 = cx1 + (r1 + r2) * 1.12;
+    const cy2 = cy1 + r1 * 0.55;
+    gear(ctx, cx1, cy1, r1, 10, t * 0.5, GOLD);
+    gear(ctx, cx2, cy2, r2, 7, -t * 0.5 * (10 / 7) + 0.25, BLUE);
+  };
+}
+
+// Formation : marches qui montent, un point les gravit
+function makeSvcTraining(): Painter {
+  return (ctx, w, h, t) => {
+    const steps = 5;
+    const x0 = w * 0.46;
+    const sw = (w - x0 - 22) / steps;
+    const base = h - 24;
+    const tops: [number, number][] = [];
+    for (let i = 0; i < steps; i++) {
+      const sh = (h * 0.55 * (i + 1)) / steps;
+      ctx.fillStyle = rgba(BLUE, 0.12 + i * 0.03);
+      ctx.fillRect(x0 + i * sw, base - sh, sw - 4, sh);
+      ctx.strokeStyle = rgba(BLUE, 0.8);
+      ctx.lineWidth = 1.2;
+      ctx.strokeRect(x0 + i * sw, base - sh, sw - 4, sh);
+      tops.push([x0 + i * sw + (sw - 4) / 2, base - sh - 7]);
+    }
+    const p = (t * 0.45) % (steps - 0.01);
+    const i = Math.floor(p);
+    const f = p - i;
+    const a = tops[i];
+    const b = tops[Math.min(i + 1, steps - 1)];
+    const px = a[0] + (b[0] - a[0]) * f;
+    const py = a[1] + (b[1] - a[1]) * f - Math.sin(f * Math.PI) * 14;
+    ctx.beginPath();
+    ctx.arc(px, py, 5, 0, 7);
+    ctx.fillStyle = rgba(GOLD, 1);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(px, py, 9 + Math.sin(t * 4) * 1.5, 0, 7);
+    ctx.strokeStyle = rgba(GOLD, 0.4);
+    ctx.stroke();
+  };
+}
+
 const factories: Record<string, () => Painter> = {
+  'svc-web-apps': makeSvcWeb,
+  'svc-management-software': makeSvcManagement,
+  'svc-network': makeSvcNetwork,
+  'svc-security': makeSvcSecurity,
+  'svc-database': makeSvcDatabase,
+  'svc-maintenance': makeSvcMaintenance,
+  'svc-training': makeSvcTraining,
   web: makeWeb,
   software: makeSoftware,
   database: makeDatabase,

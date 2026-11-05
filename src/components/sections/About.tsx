@@ -44,16 +44,16 @@ export function About() {
             </p>
             <div className="about__stats">
               <div className="about__stat">
-                <div className="about__stat-number"><CountUp end={5} suffix="+" /></div>
-                <div className="about__stat-label">Projets livres</div>
+                <div className="about__stat-number"><CountUp end={2} /></div>
+                <div className="about__stat-label">Applications developpees</div>
               </div>
               <div className="about__stat">
-                <div className="about__stat-number"><CountUp end={3} suffix="+" /></div>
-                <div className="about__stat-label">Clients actifs</div>
+                <div className="about__stat-number"><CountUp end={8} /></div>
+                <div className="about__stat-label">Domaines d'expertise</div>
               </div>
               <div className="about__stat">
-                <div className="about__stat-number"><CountUp end={2} suffix="+" /></div>
-                <div className="about__stat-label">Annees d'experience</div>
+                <div className="about__stat-number"><CountUp end={7} /></div>
+                <div className="about__stat-label">Services proposes</div>
               </div>
             </div>
           </div>

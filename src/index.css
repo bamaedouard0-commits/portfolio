@@ -392,13 +392,14 @@ html.lenis, html.lenis body { height: auto; }
 .text-reveal__unit { will-change: transform, opacity; }
 
 /* Fonds animes des cartes de competences */
-.skill-card { position: relative; overflow: hidden; }
-.skill-card > *:not(.card-backdrop) { position: relative; z-index: 1; }
+.skill-card, .service-card { position: relative; overflow: hidden; }
+.skill-card > *:not(.card-backdrop), .service-card > *:not(.card-backdrop) { position: relative; z-index: 1; }
+.service-card { min-height: 200px; }
 .card-backdrop {
   position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;
   opacity: 0.45; transition: opacity var(--duration-medium) var(--ease-smooth-out);
 }
-.skill-card:hover .card-backdrop { opacity: 0.8; }
+.skill-card:hover .card-backdrop, .service-card:hover .card-backdrop { opacity: 0.8; }
 :root[data-theme="light"] .card-backdrop { opacity: 0.35; }
 
 /* Papillons */

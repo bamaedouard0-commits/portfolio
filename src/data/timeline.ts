@@ -33,7 +33,7 @@ export const timeline: TimelineEntry[] = [
   },
   {
     id: 'bamresto-project',
-    period: '2024 - present',
+    period: 'En cours',
     title: 'Developpement de BamResto',
     organization: 'Logiciel de gestion multi-sites pour restaurants',
     description:
@@ -42,7 +42,7 @@ export const timeline: TimelineEntry[] = [
   },
   {
     id: 'ecole-bf-project',
-    period: '2024 - present',
+    period: 'En cours',
     title: 'Developpement d\'ECOLE-BF',
     organization: 'Application de gestion scolaire pour le Burkina Faso',
     description:

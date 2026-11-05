@@ -2,6 +2,7 @@ import * as LucideIcons from 'lucide-react';
 import { services } from '../../data/services';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 import { TextReveal } from '../motion/TextReveal';
+import { CardBackdrop } from '../motion/CardBackdrop';
 
 type IconName = keyof typeof LucideIcons;
 
@@ -23,7 +24,8 @@ export function Services() {
         </div>
         <div className="services-grid">
           {services.map((service) => (
-            <div className="card" key={service.id} data-animate>
+            <div className="card service-card" key={service.id} data-animate>
+              <CardBackdrop kind={`svc-${service.id}`} />
               <div className="service-card__icon">
                 {getIcon(service.icon)}
               </div>
