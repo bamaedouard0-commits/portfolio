@@ -2,6 +2,8 @@ import { useState, type FormEvent } from 'react';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import { social } from '../../data/social';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
+import { TextReveal } from '../motion/TextReveal';
+import { MagneticButton } from '../motion/MagneticButton';
 
 export function Contact() {
   const ref = useScrollAnimation<HTMLElement>();
@@ -20,7 +22,7 @@ export function Contact() {
       <div className="container">
         <div className="section-title" data-animate>
           <span className="section-title__label">06. Contact</span>
-          <h2 className="section-title__heading">Travaillons ensemble</h2>
+          <TextReveal as="h2" className="section-title__heading">Travaillons ensemble</TextReveal>
         </div>
         <div className="contact__inner">
           <form className="contact__form" onSubmit={handleSubmit} data-animate>
@@ -72,9 +74,9 @@ export function Contact() {
               automatique, un service comme EmailJS ou Formspree peut etre
               configure ulterieurement.
             </p>
-            <button type="submit" className="btn btn--primary">
+            <MagneticButton type="submit" className="btn btn--primary">
               <Send size={16} /> Envoyer le message
-            </button>
+            </MagneticButton>
           </form>
 
           <div className="contact__info" data-animate>

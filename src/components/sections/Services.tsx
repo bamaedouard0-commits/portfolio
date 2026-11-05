@@ -1,6 +1,7 @@
 import * as LucideIcons from 'lucide-react';
 import { services } from '../../data/services';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
+import { TextReveal } from '../motion/TextReveal';
 
 type IconName = keyof typeof LucideIcons;
 
@@ -18,7 +19,7 @@ export function Services() {
       <div className="container">
         <div className="section-title" data-animate>
           <span className="section-title__label">04. Services</span>
-          <h2 className="section-title__heading">Ce que je propose</h2>
+          <TextReveal as="h2" className="section-title__heading">Ce que je propose</TextReveal>
         </div>
         <div className="services-grid">
           {services.map((service) => (

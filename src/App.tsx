@@ -8,15 +8,27 @@ import { Projects } from './components/sections/Projects';
 import { Services } from './components/sections/Services';
 import { Timeline } from './components/sections/Timeline';
 import { Contact } from './components/sections/Contact';
+import { Marquee } from './components/motion/Marquee';
+import { useLenis } from './hooks/useLenis';
 
 function App() {
+  useLenis();
+
   return (
     <>
       <Navbar />
       <main>
         <Hero />
+        <Marquee
+          text="Design & Developpement"
+          className="marquee--section"
+        />
         <About />
         <Skills />
+        <Marquee
+          text="Projets & Realisations"
+          className="marquee--section marquee--reverse"
+        />
         <Projects />
         <Services />
         <Timeline />

@@ -1,6 +1,7 @@
 import * as LucideIcons from 'lucide-react';
 import { skillDomains } from '../../data/skills';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
+import { TextReveal } from '../motion/TextReveal';
 
 type IconName = keyof typeof LucideIcons;
 
@@ -18,7 +19,7 @@ export function Skills() {
       <div className="container">
         <div className="section-title" data-animate>
           <span className="section-title__label">02. Competences</span>
-          <h2 className="section-title__heading">Mon expertise technique</h2>
+          <TextReveal as="h2" className="section-title__heading">Mon expertise technique</TextReveal>
         </div>
         <div className="skills-grid">
           {skillDomains.map((domain) => (

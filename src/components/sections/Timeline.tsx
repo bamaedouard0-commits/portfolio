@@ -1,5 +1,6 @@
 import { timeline } from '../../data/timeline';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
+import { TextReveal } from '../motion/TextReveal';
 
 export function Timeline() {
   const ref = useScrollAnimation<HTMLElement>();
@@ -9,7 +10,7 @@ export function Timeline() {
       <div className="container">
         <div className="section-title" data-animate>
           <span className="section-title__label">05. Parcours</span>
-          <h2 className="section-title__heading">Mon parcours</h2>
+          <TextReveal as="h2" className="section-title__heading">Mon parcours</TextReveal>
         </div>
         <div className="timeline" data-animate>
           {timeline.map((entry) => (

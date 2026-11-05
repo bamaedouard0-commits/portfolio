@@ -1,4 +1,7 @@
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
+import { TextReveal } from '../motion/TextReveal';
+import { CountUp } from '../motion/CountUp';
+import { Parallax } from '../motion/Parallax';
 
 export function About() {
   const ref = useScrollAnimation<HTMLElement>();
@@ -8,17 +11,19 @@ export function About() {
       <div className="container">
         <div className="section-title" data-animate>
           <span className="section-title__label">01. A propos</span>
-          <h2 className="section-title__heading">Qui suis-je</h2>
+          <TextReveal as="h2" className="section-title__heading">Qui suis-je</TextReveal>
         </div>
         <div className="about__inner">
           <div className="about__photo-wrapper" data-animate>
-            <img
-              src={import.meta.env.BASE_URL + 'images/photo.jpg'}
-              alt="BAMA Edouard"
-              className="about__photo"
-              loading="lazy"
-            />
-            <div className="about__photo-accent" />
+            <Parallax speed={-0.25}>
+              <img
+                src={import.meta.env.BASE_URL + 'images/photo.jpg'}
+                alt="BAMA Edouard"
+                className="about__photo"
+                loading="lazy"
+              />
+              <div className="about__photo-accent" />
+            </Parallax>
           </div>
           <div className="about__text" data-animate>
             <p>
@@ -39,15 +44,15 @@ export function About() {
             </p>
             <div className="about__stats">
               <div className="about__stat">
-                <div className="about__stat-number">5+</div>
+                <div className="about__stat-number"><CountUp end={5} suffix="+" /></div>
                 <div className="about__stat-label">Projets livres</div>
               </div>
               <div className="about__stat">
-                <div className="about__stat-number">3+</div>
+                <div className="about__stat-number"><CountUp end={3} suffix="+" /></div>
                 <div className="about__stat-label">Clients actifs</div>
               </div>
               <div className="about__stat">
-                <div className="about__stat-number">2+</div>
+                <div className="about__stat-number"><CountUp end={2} suffix="+" /></div>
                 <div className="about__stat-label">Annees d'experience</div>
               </div>
             </div>

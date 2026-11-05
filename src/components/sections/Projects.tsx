@@ -3,6 +3,7 @@ import { ExternalLink } from 'lucide-react';
 import { GithubIcon } from '../icons/SocialIcons';
 import { projects, categories, type ProjectCategory } from '../../data/projects';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
+import { TextReveal } from '../motion/TextReveal';
 
 export function Projects() {
   const [filter, setFilter] = useState<ProjectCategory>('all');
@@ -21,7 +22,7 @@ export function Projects() {
       <div className="container">
         <div className="section-title" data-animate>
           <span className="section-title__label">03. Projets</span>
-          <h2 className="section-title__heading">Mes realisations</h2>
+          <TextReveal as="h2" className="section-title__heading">Mes realisations</TextReveal>
         </div>
 
         <div className="projects__filters" data-animate>
