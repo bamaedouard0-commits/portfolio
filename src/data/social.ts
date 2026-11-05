@@ -4,7 +4,7 @@
  * Les valeurs entre {{ }} sont des emplacements a remplacer.
  */
 export const social = {
-  github: '{{LIEN_GITHUB}}',
+  github: 'https://github.com/bamaedouard0-commits',
   linkedin: 'https://www.linkedin.com/in/edouard-bama-7056ba432',
   facebook: 'https://www.facebook.com/profile.php?id=61596243659966',
   tiktok: '{{LIEN_TIKTOK}}',
